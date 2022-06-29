@@ -10,14 +10,18 @@ export class Order {
         this.client = client;
         this.orderItemsCount = orderItems.length;
         this.orderItems = orderItems;
-        this.sum = 0;
+        this.sum = this.getSum(orderItems, menu);
+    }
 
+    getSum(orderItems: string[], menu: Array<Dish>) {
+        let sum = 0;
         for (let i = 0; i < orderItems.length; i++) {
             for (let el of menu) {
                 if (el.name === orderItems[i]) {
-                    this.sum += el.price;
+                    sum += el.price;
                 }
             }
         }
+        return sum;
     }
 }
