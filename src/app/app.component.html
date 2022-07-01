@@ -1,40 +1,8 @@
-<!-- <form #loginForm="ngForm" (ngSubmit)="handleLogin(loginForm.value)">
-    <div class="auth">
-        <div class="auth__fields">
-            <input class="auth__input" ngModel type="email" placeholder="E-mail" name="email">
-        </div>
-        <div class="auth__fields">
-            <input class="auth__input" ngModel type="password" placeholder="Password" name="password">
-        </div>
-
-        <button>Sign in</button>
-        <button>Sign up</button>
-    </div>
-</form> -->
-
-<form #newClientForm="ngForm" (ngSubmit)="createData(newClientForm.value)">
-    <div class="client main">
-        <div class="main__fields">
-            <input class="main__input" ngModel type="text" placeholder="Name" id="name" name="name" required>
-        </div>
-        <div class="main__fields">
-            <input class="main__input" ngModel type="number" placeholder="Age" id="age" name="age" required min="6">
-        </div>
-        <div class="main__fields">
-            <input class="main__input" ngModel type="text" placeholder="Taste" id="taste" name="taste">
-        </div>
-
-        <button>Add data</button>
-    </div>
-</form>
-
-<ol class="list">
-    Clients:
-    <li class="list__item" *ngFor="let item of data">
-        <div>Name: {{item.name}}</div>
-        <div>Age: {{item.age}}</div>
-        <div>Taste: {{item.taste}}</div>
-        <button class="list__btn" (click)="updateData(item.id)">Update data</button>
-        <button class="list__btn" (click)="deleteData(item.id)">Delete data</button>
-    </li>
-</ol>
+<main>
+    <nav>
+        <a routerLink="/clients">Our clients</a>
+        <a routerLink="/orders">Make an order</a>
+        <a routerLink="/dishes">List of dishes</a>
+    </nav>
+    <router-outlet></router-outlet>
+</main>

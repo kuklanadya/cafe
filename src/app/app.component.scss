@@ -1,32 +1,31 @@
-.main {
-    font-size: 16px;
-    &__fields {
-        margin: 15px 0;
+main {
+    text-align: center;
+    padding: 20px;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+    padding: 15px 25px;
+    &:not(:last-child) {
+        margin-right: 10px;
     }
-    &__input {
-        padding: 5px 10px;
+    &:hover {
+        background-color: #fcc5c0;
     }
 }
 
-.list {
-    margin-top: 50px;
-    padding-left: 20px;
+nav {
+    background-color: #f2d7d9;
+    text-align: center;
+    padding: 15px 20px;
     font-size: 18px;
-    &__item {
-        margin: 10px 0;
-        padding: 0;
-        font-size: 16px;
-    }
-    &__item:first-child {
-        margin-top: 5px;
-    }
-    &__btn {
-        margin-top: 5px;
-        margin-right: 10px;
-    }
+    margin: -20px;
+    margin-bottom: 20px;
 }
 
 button {
+    border-radius: 15px;
     cursor: pointer;
     height: 30px;
     width: 100px;
