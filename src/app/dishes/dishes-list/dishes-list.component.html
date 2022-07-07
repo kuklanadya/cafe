@@ -1,0 +1,9 @@
+<h2>Menu</h2>
+<ol class="list">
+    <li class="list__item" *ngFor="let item of data">
+        <div>Name: {{item.name | titlecase}}</div>
+        <div>Price: {{item.price + '₴'}}</div>
+        <div>Type: {{item.type | addIcon }}</div>
+        <div>Taste: {{item.taste}}</div>
+        <div>Ingredients: {{item.ingredients.join(', ')}}</div>
+</ol>

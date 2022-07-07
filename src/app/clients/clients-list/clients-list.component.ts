@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { doc, getDocs, deleteDoc, Firestore, collection } from '@angular/fire/firestore';
+import { collectionData } from '@angular/fire/firestore';
+import { collection, Firestore, query } from 'firebase/firestore';
+import { map } from 'rxjs';
+import { ClientsService } from 'src/app/shared/services/clients.service';
 
 @Component({
   selector: 'app-clients-list',
@@ -10,32 +13,23 @@ import { doc, getDocs, deleteDoc, Firestore, collection } from '@angular/fire/fi
 export class ClientsListComponent implements OnInit {
   public data: any = [];
 
-  constructor(public firestore: Firestore) {
+  constructor(
+    private crudService: ClientsService
+  ) {
     this.readData();
   }
 
   ngOnInit(): void {
+
   }
 
   readData() {
-    const clientInstanse = collection(this.firestore, 'clients');
+    // this.data = this.crudService.read();
+    // console.log(this.data)
 
-    getDocs(clientInstanse)
-      .then((response) => {
-        this.data = [...response.docs.map((item) => {
-          return { ...item.data(), id: item.id }
-        })]
-      });
+    // const clientInstanse = collection(this.firestore, 'clients');
+    // const clientRef = query(clientInstanse);
+    // console.log(clientRef)
+
   }
-
-  deleteData(id: string) {
-    const dataToDelete = doc(this.firestore, 'clients', id);
-    deleteDoc(dataToDelete)
-      .then(() => {
-        alert('Data deleted!')
-        this.readData()
-      })
-      .catch((err) => alert(err.message));
-  }
-
 }

@@ -15,6 +15,7 @@ import { OrdersModule } from './orders/orders.module';
 import { ClientsModule } from './clients/clients.module';
 import { DishesModule } from './dishes/dishes.module';
 import { ClientComponent } from './client/client.component';
+import { DishComponent } from './dish/dish.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ClientComponent } from './client/client.component';
     DishesComponent,
     NotFoundComponent,
     ClientComponent,
+    DishComponent,
   ],
   imports: [
     BrowserModule,

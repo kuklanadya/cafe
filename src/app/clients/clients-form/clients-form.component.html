@@ -1,24 +1,15 @@
-<h3>{{clientId ? 'Update client`s data' : 'Create new client'}}</h3>
+<h3>{{id ? 'Update client`s data' : 'Create new client'}}</h3>
 <div class="client">
     <form [formGroup]="clientForm" (submit)="formSubmitted(clientForm.value)">
         <label for="name">Name:</label>
-        <input class="client__input" type="name" [value]="[item?.name]" name="name" formControlName="name">
+        <input class="client__input" type="text" name="name" formControlName="name">
         <label for="name">Age:</label>
-        <input class="client__input" type="age" [value]="[item?.age]" name="age" formControlName="age">
+        <input class="client__input" type="number" name="age" formControlName="age">
         <label for="name">Taste:</label>
-        <input class="client__input" type="taste" [value]="[item?.taste]" name="taste" formControlName="taste">
+        <input class="client__input" type="text" name="taste" formControlName="taste">
 
         <button type="reset">Reset</button>
-        <button type="submit" [disabled]="clientForm.invalid">{{clientId ? 'Update' : 'Create'}}</button>
+        <button type="submit" [disabled]="clientForm.invalid">{{id ? 'Update' : 'Create'}}</button>
     </form>
 </div>
 <button class="btn-back" (click)="goBack()">Back</button>
-
-<!-- [value] заданы, потому что не работает  
-    this.clientForm = this.fb.group({
-      name: [this.item?.name, Validators.required],
-      age: [this.item?.age, Validators.required],
-      taste: [this.item?.taste],
-    }); 
-    в clients-form-component.ts
--->

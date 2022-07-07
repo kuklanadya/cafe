@@ -1,12 +1,14 @@
+import { DbEntity } from "../shared/db-entity.model";
 import { Dish } from "./dish.model";
 import { Order } from "./order.model";
 
-export class Client {
+export class Client extends DbEntity {
     name: string;
     age: number;
     taste?: TasteType;
 
     constructor(name: string, age: number, taste: TasteType) {
+        super()
         this.name = name;
         this.age = age;
         this.taste = taste || TasteType.common;

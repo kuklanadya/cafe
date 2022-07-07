@@ -1,28 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { ClientsService } from '../shared/services/clients.service';
+import { DishesService } from '../shared/services/dishes.service';
 
 @Component({
-  selector: 'app-client',
-  templateUrl: './client.component.html',
-  styleUrls: ['./client.component.scss']
+  selector: 'app-dish',
+  templateUrl: './dish.component.html',
+  styleUrls: ['./dish.component.scss']
 })
 
-export class ClientComponent implements OnInit {
+export class DishComponent implements OnInit {
   public item: any = [];
   id!: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private location: Location,
-    private crudService: ClientsService
+    private crudService: DishesService
   ) { }
 
   ngOnInit(): void {
     this.subscribeRouteParams();
   }
-
   subscribeRouteParams() {
     this.activatedRoute.params
       .subscribe((params) => {
@@ -36,12 +35,6 @@ export class ClientComponent implements OnInit {
       .subscribe((res) => {
         this.item = res;
       });
-  }
-
-  deleteData(id: string) {
-    this.crudService.delete(id);
-    alert('Data deleted!')
-    this.goBack();
   }
 
   goBack() {

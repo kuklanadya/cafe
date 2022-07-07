@@ -17,9 +17,9 @@ export class Dish {
 }
 
 export enum DishType {
-    "first course",
-    "second course",
-    snack,
-    dessert,
-    drink
+    firstCourse = "first course",
+    secondCourse = "second course",
+    snack = 'snack',
+    dessert = 'dessert',
+    drink = 'drink'
 }

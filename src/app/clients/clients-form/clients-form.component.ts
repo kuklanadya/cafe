@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { addDoc, updateDoc, doc, query, Firestore, collection, collectionData } from '@angular/fire/firestore';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
 import { Location } from '@angular/common';
+import { ClientsService } from 'src/app/shared/services/clients.service';
 
 @Component({
   selector: 'app-clients-form',
@@ -13,63 +12,65 @@ import { Location } from '@angular/common';
 
 export class ClientsFormComponent implements OnInit {
   public item: any = [];
-  clientId!: string;
+  id!: string;
   clientForm!: FormGroup;
 
-  constructor(public firestore: Firestore, private fb: FormBuilder, private activatedRoute: ActivatedRoute, private location: Location) { }
+  constructor(
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private location: Location,
+    private crudService: ClientsService
+  ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params
-      .subscribe((params) => {
-        this.clientId = params['clientId'];
-      });
-
-    this.findClient();
+    this.subscribeRouteParams();
     this.initForm();
   }
 
-  findClient() {
-    const clientInstanse = collection(this.firestore, 'clients');
-    const clientRef = query(clientInstanse); //where('id', '==', this.clientId)
-    collectionData(clientRef, { idField: 'id' })
-      .pipe(map((lists: any[]) => lists.length ? lists : null))
-      .subscribe((res) => {
-        this.item = res?.find((item: any) => item['id'] == this.clientId);
+  subscribeRouteParams() {
+    this.activatedRoute.params
+      .subscribe((params) => {
+        this.id = params['id'];
+        this.getById();
       });
   }
 
-  //НЕ РАБОТАЕТ ЗАПОЛНЕНИЕ ПОЛЕЙ ФОРМЫ
+  getById() {
+    this.crudService.getById(this.id)
+      .subscribe((res) => {
+        this.item = res;
+        this.patchForm();
+      });
+  }
+
   initForm() {
     this.clientForm = this.fb.group({
-      name: [this.item?.name, Validators.required],
-      age: [this.item?.age, Validators.required],
-      taste: [this.item?.taste],
+      name: ['', Validators.required],
+      age: ['', Validators.required],
+      taste: [''],
     });
   }
 
+  patchForm() {
+    this.clientForm.patchValue({
+      name: [this.item?.name],
+      age: [this.item?.age],
+      taste: [this.item?.taste],
+    })
+  }
+
   formSubmitted(value: any) {
-    console.log(this.clientForm);
-    this.clientId ? this.updateData(this.clientId, value) : this.createData(value);
+    this.id ? this.updateData(this.id, value) : this.createData(value);
   }
 
   createData(value: any) {
-    const clientInstanse = collection(this.firestore, 'clients');
-    addDoc(clientInstanse, {
-      name: value.name, age: value.age, taste: value.taste || 'common'
-    })
-      .then(() => alert('Data sent!'))
-      .catch((err) => alert(err.message));
+    this.crudService.create(value);
+    alert('Data sent!');
   }
 
   updateData(id: string, value: any) {
-    const dataToUpdate = doc(this.firestore, 'clients', id);
-    updateDoc(dataToUpdate, {
-      name: value.name, age: value.age, taste: value.taste || 'common'
-    })
-      .then(() => {
-        alert('Data updated!')
-      })
-      .catch((err) => alert(err.message));
+    this.crudService.update(id, value);
+    alert('Data updated!');
   }
 
   goBack() {

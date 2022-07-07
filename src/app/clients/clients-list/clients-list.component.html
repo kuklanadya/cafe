@@ -6,8 +6,8 @@
         <div>Taste: {{item.taste}}</div>
 
         <button class="list__btn" routerLink="/clients/create">Create data</button>
-        <button class="list__btn" [routerLink]="['/clients/client', item.id, 'read']">Read data</button>
-        <button class="list__btn" [routerLink]="['/clients/client', item.id, 'update']">Update data</button>
-        <button class="list__btn" [routerLink]="['/clients/client', item.id, 'delete']">Delete data</button>
+        <button class="list__btn" [routerLink]="['/clients', item.id, 'read']">Read data</button>
+        <button class="list__btn" [routerLink]="['/clients', item.id, 'update']">Update data</button>
+        <button class="list__btn" [routerLink]="['/clients', item.id, 'delete']">Delete data</button>
     </li>
 </ol>

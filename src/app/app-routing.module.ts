@@ -4,6 +4,7 @@ import { ClientComponent } from './client/client.component';
 import { ClientsFormComponent } from './clients/clients-form/clients-form.component';
 import { ClientsListComponent } from './clients/clients-list/clients-list.component';
 import { ClientsComponent } from './clients/clients.component';
+import { DishesListComponent } from './dishes/dishes-list/dishes-list.component';
 import { DishesComponent } from './dishes/dishes.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -22,7 +23,7 @@ const routes: Routes = [
         component: ClientsListComponent
       },
       {
-        path: 'client/:clientId',
+        path: ':id',
         children: [
           {
             path: 'read',
@@ -56,7 +57,14 @@ const routes: Routes = [
   },
   {
     path: 'dishes',
-    component: DishesComponent
+    component: DishesComponent,
+    children: [
+      {
+        path: 'all',
+        component: DishesListComponent
+      },
+    ]
+
   },
   {
     path: '**',
