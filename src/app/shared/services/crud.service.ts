@@ -28,7 +28,7 @@ export abstract class CrudService<T extends DbEntity> {
 
     abstract collectionName: string;
 
-    constructor(private firestore: Firestore) { }
+    constructor(protected firestore: Firestore) { }
 
     private get collectionRef(): CollectionReference {
         return collection(this.firestore, this.collectionName);
@@ -38,15 +38,11 @@ export abstract class CrudService<T extends DbEntity> {
         return addDoc(this.collectionRef, { ...doc });
     }
 
-    // read(): any {
-    //     const clientRef = query(this.collectionRef);
-    //     return collectionData(clientRef, { idField: 'id' })
-    //         .pipe(map((lists: any[]) => lists.length ? lists : null))
-    //         .subscribe((res) => {
-    //             console.log(res)
-    //             return res;
-    //         });
-    // }
+    read(): Observable<any[] | null> {
+        const clientRef = query(this.collectionRef);
+        return collectionData(clientRef, { idField: 'id' })
+            .pipe(map((lists: any[]) => lists.length ? lists : null));
+    }
 
     update(id: string, entity: T): Promise<void> {
         const docRef = doc(this.firestore, this.collectionName, id);

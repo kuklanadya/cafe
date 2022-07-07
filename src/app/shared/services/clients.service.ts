@@ -10,7 +10,7 @@ import { CrudService } from './crud.service';
 export class ClientsService extends CrudService<Client>{
     collectionName = 'clients';
 
-    constructor(private firestore: Firestore) {
+    constructor(protected override firestore: Firestore) {
         super(firestore)
     }
 }

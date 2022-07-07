@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
-import { DishComponent } from 'src/app/dish/dish.component';
+import { Dish } from 'src/app/models/dish.model';
 import { CrudService } from './crud.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class DishesService extends CrudService<DishComponent>{
+export class DishesService extends CrudService<Dish>{
   collectionName = 'dishes';
 
-  constructor(public override firestore: Firestore) {
+  constructor(protected override firestore: Firestore) {
     super(firestore)
   }
 }
