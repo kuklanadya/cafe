@@ -12,7 +12,7 @@ import {
     docData,
 } from '@angular/fire/firestore';
 import { DocumentData } from 'rxfire/firestore/interfaces';
-import { DocumentReference, getDocs, QuerySnapshot } from 'firebase/firestore';
+import { DocumentReference } from 'firebase/firestore';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
@@ -51,7 +51,6 @@ export abstract class CrudService<T extends DbEntity> {
     }
 
     delete(id: string): Promise<void> {
-        console.log(this.collectionName)
         const docRef = doc(this.firestore, this.collectionName, id);
         return deleteDoc(docRef);
     }

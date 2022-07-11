@@ -5,6 +5,7 @@ import { ClientsFormComponent } from './clients-form/clients-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClientsListComponent } from './clients-list/clients-list.component';
 import { RouterModule } from '@angular/router';
+import { DialogModule } from '@angular/cdk/dialog';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
-    RouterModule
+    RouterModule,
+    DialogModule,
   ]
 })
 export class ClientsModule { }

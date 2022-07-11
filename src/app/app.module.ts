@@ -16,6 +16,7 @@ import { ClientsModule } from './clients/clients.module';
 import { DishesModule } from './dishes/dishes.module';
 import { ClientComponent } from './client/client.component';
 import { DishComponent } from './dish/dish.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { DishComponent } from './dish/dish.component';
     provideFirestore(() => getFirestore()),
     OrdersModule,
     ClientsModule,
-    DishesModule
+    DishesModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

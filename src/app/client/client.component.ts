@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ClientsService } from '../shared/services/clients.service';
+import { Dialog, DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-client',
@@ -16,7 +17,8 @@ export class ClientComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private location: Location,
-    private crudService: ClientsService
+    private crudService: ClientsService,
+    public dialog: Dialog
   ) { }
 
   ngOnInit(): void {
@@ -47,4 +49,56 @@ export class ClientComponent implements OnInit {
   goBack() {
     this.location.back();
   }
+
+  openModal(id: string): void {
+    const dialogRef = this.dialog.open<string>(deleteDataModal, {
+      width: '250px',
+    });
+
+    dialogRef.closed.subscribe(result => {
+      if (result == 'confirm') this.deleteData(id);
+    });
+
+  }
+}
+
+@Component({
+  selector: 'delete-data-modal',
+  template: `
+  <h2>Are you sure?</h2>
+  <div>
+    <button (click)="dialogRef.close('confirm')">Confirm</button>
+    <button (click)="dialogRef.close()">Cancel</button>
+  </div>
+  `,
+  styles: [`
+  :host { 
+    display: block;
+    background: #fff;
+    border-radius: 8px;
+    padding: 8px 16px 16px;
+  }
+  input {
+    margin: 8px 0;
+  }
+  button {
+    cursor: pointer;
+    height: 30px;
+    width: 100px;
+    background-color: #d3cedf;
+    border: none;
+    border-radius: 15px;
+    margin-top: 10px;
+    &:hover {
+        background-color: #bab1cd;
+    }
+  }
+  button + button {
+    margin-left: 8px;
+  } 
+  `],
+})
+
+export class deleteDataModal {
+  constructor(public dialogRef: DialogRef<string>) { }
 }

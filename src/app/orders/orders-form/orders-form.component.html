@@ -1,0 +1,75 @@
+<h2>Make an order</h2>
+<div class="order">
+    <form [formGroup]="orderForm" (submit)="formSubmitted(orderForm.value)">
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your name</mat-label>
+            <input matInput formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>When is your birthday</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="birthday">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <section class="positions">
+            <h4 class="title">What do you want to order?</h4>
+            <mat-form-field appearance="fill">
+                <mat-label>Choose a dish</mat-label>
+                <mat-select [(ngModel)]="selectedPosition" [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let item of positions" [value]="item.value">
+                        {{item.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button type="button" (click)="handleAddClick()" class="add">Add a position</button>
+        </section>
+
+        <section>
+            <h4>Where you prefer to eat</h4>
+            <mat-radio-group formControlName="place">
+                <mat-radio-button mat-accent value="takeaway">Takeaway</mat-radio-button>
+                <mat-radio-button value="indoors">Indoors</mat-radio-button>
+                <mat-radio-button value="outdoors">Outdoors</mat-radio-button>
+            </mat-radio-group>
+        </section>
+
+        <section class="discount">
+            <h4>Discount system</h4>
+            <div class="wrapper">
+                <mat-checkbox formControlName="discount">Regular customer</mat-checkbox>
+                <mat-checkbox formControlName="discount">Invited friends</mat-checkbox>
+                <mat-checkbox formControlName="discount">Birthday</mat-checkbox>
+            </div>
+        </section>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Choose payment</mat-label>
+            <mat-select formControlName="payment">
+                <mat-option *ngFor="let item of paymentMethods" [value]="item.value">
+                    {{item.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <section class="review">
+            <h4>Will you leave a review?</h4>
+            <mat-radio-group formControlName="review">
+                <mat-radio-button class="mat-accent" value="yes">Yes, of course</mat-radio-button>
+                <mat-radio-button value="no">No, thank you</mat-radio-button>
+            </mat-radio-group>
+        </section>
+
+        <div class="details wrapper">
+            <div class="details__item">Your order consists of:</div>
+            <div *ngFor="let item of items">{{item.position}}, {{item.quantity}} pc.</div>
+            <div class="details__item">Total amount: {{this.sum}}</div>
+        </div>
+
+        <div class="buttons">
+            <button type="reset">Reset</button>
+            <button type="submit" [disabled]="orderForm.invalid">Submit</button>
+        </div>
+    </form>
+</div>

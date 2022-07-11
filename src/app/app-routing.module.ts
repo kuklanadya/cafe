@@ -7,6 +7,7 @@ import { ClientsComponent } from './clients/clients.component';
 import { DishesListComponent } from './dishes/dishes-list/dishes-list.component';
 import { DishesComponent } from './dishes/dishes.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { OrdersFormComponent } from './orders/orders-form/orders-form.component';
 import { OrdersComponent } from './orders/orders.component';
 
 const routes: Routes = [
@@ -53,7 +54,13 @@ const routes: Routes = [
   },
   {
     path: 'orders',
-    component: OrdersComponent
+    component: OrdersComponent,
+    children: [
+      {
+        path: 'new',
+        component: OrdersFormComponent
+      },
+    ]
   },
   {
     path: 'dishes',
@@ -64,7 +71,6 @@ const routes: Routes = [
         component: DishesListComponent
       },
     ]
-
   },
   {
     path: '**',
