@@ -25,26 +25,3 @@ h2,
 h3 {
     text-align: center;
 }
-
-button {
-    cursor: pointer;
-    height: 30px;
-    width: 100px;
-    background-color: #d3cedf;
-    border: none;
-    border-radius: 15px;
-    &:hover {
-        background-color: #bab1cd;
-    }
-    &:not(:last-child) {
-        margin-right: 10px;
-    }
-    &:disabled {
-        pointer-events: none;
-        opacity: 0.7;
-    }
-}
-
-h2 {
-    margin: 15px 0 10px;
-}

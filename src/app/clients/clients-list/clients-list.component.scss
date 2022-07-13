@@ -25,11 +25,13 @@ button {
     cursor: pointer;
     height: 30px;
     width: 100px;
-    background-color: #d3cedf;
+    background-color: #a4cfe8;
+    color: #fff;
     border: none;
     border-radius: 15px;
+    margin-top: 10px;
     &:hover {
-        background-color: #bab1cd;
+        background-color: #7abde3;
     }
     &:not(:last-child) {
         margin-right: 10px;
