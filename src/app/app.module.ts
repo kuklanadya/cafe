@@ -17,6 +17,7 @@ import { DishesModule } from './dishes/dishes.module';
 import { ClientComponent } from './client/client.component';
 import { DishComponent } from './dish/dish.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ClientsModule,
     DishesModule,
     BrowserAnimationsModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

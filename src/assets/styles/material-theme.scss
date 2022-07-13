@@ -1,0 +1,83 @@
+@use "@angular/material" as mat;
+@import "./variables.scss";
+@include mat.core();
+
+$primary-palette: (
+    50: #f3e5f4,
+    100: #e2bfe5,
+    200: $primary,
+    300: #bc6bc4,
+    400: #eb83f5,
+    500: #d852e4,
+    600: #912aa4,
+    700: #7f249c,
+    800: #6f2094,
+    900: #511786,
+    A100: #ffffff,
+    A200: #ffffff,
+    A400: #ffedd7,
+    A700: #ffe2be,
+    contrast: (
+        50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: rgba(black, 0.87),
+        400: rgba(black, 0.87),
+        500: rgba(black, 0.87),
+        600: rgba(black, 0.87),
+        700: rgba(black, 0.87),
+        800: rgba(black, 0.87),
+        900: rgba(black, 0.87),
+        A100: rgba(black, 0.87),
+        A200: rgba(black, 0.87),
+        A400: rgba(black, 0.87),
+        A700: rgba(black, 0.87),
+    ),
+);
+
+$secondary-palette: (
+    50: $secondary,
+    100: $secondary,
+    200: $secondary,
+    300: $secondary,
+    400: $secondary,
+    500: $secondary,
+    600: $secondary,
+    700: $secondary,
+    800: $secondary,
+    900: $secondary,
+    A100: $secondary,
+    A200: $secondary,
+    A400: $secondary,
+    A700: $secondary,
+    contrast: (
+        50: white,
+        100: white,
+        200: white,
+        300: white,
+        400: white,
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: white,
+        A200: white,
+        A400: white,
+        A700: white,
+    ),
+);
+
+$app-warn: mat.define-palette(mat.$red-palette);
+
+$app-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: mat.define-palette($primary-palette),
+            accent: mat.define-palette($secondary-palette),
+            warn: $app-warn,
+        ),
+    )
+);
+
+@include mat.all-component-themes($app-theme);

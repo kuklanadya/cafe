@@ -1,0 +1,5 @@
+<h2>Are you sure to delete {{data.name}}?</h2>
+<div>
+    <button mat-raised-button (click)="dialogRef.close()">Cancel</button>
+    <button mat-raised-button (click)="dialogRef.close('confirm')">Confirm</button>
+</div>
