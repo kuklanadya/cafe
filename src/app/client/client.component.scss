@@ -19,16 +19,17 @@ button {
     }
 }
 
-.info {
-    &:not(:last-child) {
-        margin-bottom: 10px;
-    }
-}
-
 .wrapper {
     margin: 0 auto;
     text-align: left;
     width: 200px;
+}
+
+.info {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .buttons {

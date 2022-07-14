@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DishesRoutingModule } from './dishes-routing.module';
 import { DishesListComponent } from './dishes-list/dishes-list.component';
 import { RouterModule } from '@angular/router';
 import { AddIconPipe } from '../pipes/add-icon.pipe';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -12,8 +15,11 @@ import { AddIconPipe } from '../pipes/add-icon.pipe';
   ],
   imports: [
     CommonModule,
-    DishesRoutingModule,
-    RouterModule
+    RouterModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule
   ]
 })
 

@@ -18,6 +18,7 @@ import {
 
 export class ClientComponent implements OnInit {
   public item: any = [];
+  clientNote: string = '';
   id!: string;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -69,7 +70,7 @@ export class ClientComponent implements OnInit {
     dialogRef.closed.subscribe(result => {
       if (result == 'confirm') {
         this.deleteData(id);
-        this.openSnackBar('Sucess! Data deleted');
+        this.openSnackBar('Success! Data deleted');
       }
       else {
         this.openSnackBar('Oops! Deletion canceled');
@@ -83,5 +84,9 @@ export class ClientComponent implements OnInit {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
     });
+  }
+
+  onNoteChanged(note: any) {
+    this.clientNote = note;
   }
 }

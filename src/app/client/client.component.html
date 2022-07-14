@@ -1,9 +1,13 @@
 <h3>Client</h3>
 
 <div class="wrapper">
-    <div class="info">Name: {{item.name}}</div>
-    <div class="info">Age: {{item.age}}</div>
-    <div class="info">Taste: {{item.taste}}</div>
+    <app-client-note [name]="item.name" (noteChanged)="onNoteChanged($event)"></app-client-note>
+    <div class="info">
+        <div>Name: {{item.name}}</div>
+        <div>Age: {{item.age}}</div>
+        <div>Taste: {{item.taste}}</div>
+        <div>Note: {{clientNote}}</div>
+    </div>
 </div>
 
 <div class="buttons">

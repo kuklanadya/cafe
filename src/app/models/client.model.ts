@@ -26,10 +26,10 @@ export class Client extends DbEntity {
 }
 
 export enum TasteType {
-    spicy,
-    bitter,
-    sweet,
-    salty,
-    sour,
-    common
+    spicy = "spicy",
+    bitter = "bitter",
+    sweet = "sweet",
+    salty = "salty",
+    sour = "sour",
+    common = "common",
 }

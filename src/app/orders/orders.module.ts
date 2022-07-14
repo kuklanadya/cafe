@@ -11,10 +11,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { OrdersInfoComponent } from './orders-info/orders-info.component';
 
 @NgModule({
   declarations: [
-    OrdersFormComponent
+    OrdersFormComponent,
+    OrdersInfoComponent
   ],
   imports: [
     CommonModule,

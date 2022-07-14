@@ -1,0 +1,5 @@
+<h4>Note about {{name}}</h4>
+<mat-form-field appearance="fill">
+    <mat-label>Enter a note</mat-label>
+    <input [(ngModel)]="note" (keyup)="noteChanged.emit(note)" matInput>
+</mat-form-field>

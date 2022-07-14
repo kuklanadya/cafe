@@ -3,6 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ClientsService } from 'src/app/shared/services/clients.service';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-clients-form',
@@ -14,12 +19,15 @@ export class ClientsFormComponent implements OnInit {
   public item: any = [];
   id!: string;
   clientForm!: FormGroup;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   constructor(
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private location: Location,
-    private crudService: ClientsService
+    private crudService: ClientsService,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -65,15 +73,25 @@ export class ClientsFormComponent implements OnInit {
 
   createData(value: any) {
     this.crudService.create(value);
-    alert('Data sent!');
+    this.openSnackBar('Success! Client was created')
+    this.goBack();
   }
 
   updateData(id: string, value: any) {
     this.crudService.update(id, value);
-    alert('Data updated!');
+    this.openSnackBar('Success! Client`s data updated')
+    this.goBack();
   }
 
   goBack() {
     this.location.back();
+  }
+
+  openSnackBar(value: string) {
+    this.snackBar.open(value, 'Close', {
+      duration: 3000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
   }
 }

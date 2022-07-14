@@ -9,11 +9,10 @@ import { DishesService } from 'src/app/shared/services/dishes.service';
 })
 
 export class OrdersFormComponent implements OnInit {
-  public items: any = [];
+  public order: any = [];
   public dishes: any = [];
   orderForm!: FormGroup;
   sum: number = 0;
-
   selectedPosition!: string;
   quantity: number = 1;
 
@@ -72,16 +71,33 @@ export class OrdersFormComponent implements OnInit {
   }
 
   addPosition() {
-    this.items.push({
-      position: this.selectedPosition,
-      quantity: this.quantity
-    })
+    if (!this.order.find((item: any) => item.position == this.selectedPosition)) {
+      console.log(!this.order.find((item: any) => item.position == this.selectedPosition))
+      this.order.push({
+        position: this.selectedPosition,
+        quantity: this.quantity
+      })
+    }
+    else {
+      for (let item of this.order) {
+        if (item.position == this.selectedPosition) {
+          item.quantity += this.quantity;
+        }
+      }
+    }
+
     this.selectedPosition = '';
     this.quantity = 1;
   }
 
   countSum() {
-
+    for (let i = 0; i < this.order.length; i++) {
+      for (let item of this.dishes) {
+        if (item.name === this.order[i].position) {
+          this.sum += item.price;
+        }
+      }
+    }
   }
 
   initForm() {

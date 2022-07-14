@@ -18,6 +18,9 @@ import { ClientComponent } from './client/client.component';
 import { DishComponent } from './dish/dish.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ClientNoteComponent } from './client/client-note/client-note.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     NotFoundComponent,
     ClientComponent,
     DishComponent,
+    ClientNoteComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +45,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     DishesModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

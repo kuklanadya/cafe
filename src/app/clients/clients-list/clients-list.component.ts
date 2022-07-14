@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { collectionData } from '@angular/fire/firestore';
-import { collection, query } from 'firebase/firestore';
-import { map } from 'rxjs';
 import { ClientsService } from 'src/app/shared/services/clients.service';
 
 @Component({
