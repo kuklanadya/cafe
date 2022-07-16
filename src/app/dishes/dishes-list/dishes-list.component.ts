@@ -39,9 +39,7 @@ export class DishesListComponent implements OnInit {
   setSort(): void {
     let params = this.activatedRoute.snapshot.queryParams;
     if (params && params['direction'] != 'none') {
-      this.sort.sort(({ id: params['sort'], direction: params['direction'] }) as any)
-      this.dataSource.sort = this.sort;
-      return;
+      this.sort.sort(({ id: params['sort'], direction: params['direction'], start: params['direction'] }) as any)
     }
     this.dataSource.sort = this.sort;
     this.dataSource.sort.sortChange.subscribe((sortChange: Sort) => {

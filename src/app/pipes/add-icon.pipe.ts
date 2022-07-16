@@ -14,7 +14,7 @@ export class AddIconPipe implements PipeTransform {
   getDish(type: DishType) {
     switch (type) {
       case DishType.firstCourse: {
-        return '🍲'
+        return '🍕'
       }
       case DishType.secondCourse: {
         return '🥞'
@@ -26,7 +26,7 @@ export class AddIconPipe implements PipeTransform {
         return '🍨'
       }
       case DishType.drink: {
-        return '🍸'
+        return '🍷'
       }
       default: {
         return ''
