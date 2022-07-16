@@ -4,6 +4,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-dishes-list',
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 
 export class DishesListComponent implements OnInit {
   public data: any = [];
+  filterInput!: string;
   dataSource!: MatTableDataSource<any>;
   collectionName: string = 'dishes';
   displayedColumns: string[] = ['name', 'price', 'type', 'taste', 'ingredients'];
@@ -37,7 +39,7 @@ export class DishesListComponent implements OnInit {
   }
 
   setSort(): void {
-    let params = this.activatedRoute.snapshot.queryParams;
+    const params = this.activatedRoute.snapshot.queryParams;
     if (params && params['direction'] != 'none') {
       this.sort.sort(({ id: params['sort'], direction: params['direction'], start: params['direction'] }) as any)
     }
@@ -58,14 +60,29 @@ export class DishesListComponent implements OnInit {
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  checkFilterParams() {
+    const params = this.activatedRoute.snapshot.queryParams;
+    if (params['filter']) {
+      this.filterInput = params['filter'];
+    }
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    const filterValue = this.filterInput;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.router.navigate([], {
+      queryParams: {
+        filter: filterValue,
+      },
+      queryParamsHandling: 'merge'
+    });
   }
 
   readData() {
     this.crudService.read().subscribe((res: any) => {
       this.createTable(res);
+      this.checkFilterParams();
     });
   }
 }
