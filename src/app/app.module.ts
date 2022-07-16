@@ -31,7 +31,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NotFoundComponent,
     ClientComponent,
     DishComponent,
-    ClientNoteComponent
+    ClientNoteComponent,
   ],
   imports: [
     BrowserModule,
