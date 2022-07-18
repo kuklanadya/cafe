@@ -1,19 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { DishesService } from 'src/app/shared/services/dishes.service';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-dishes-list',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dishes-list.component.html',
   styleUrls: ['./dishes-list.component.scss']
 })
 
 export class DishesListComponent implements OnInit {
-  public data: any = [];
+  data: any = [];
   filterInput!: string;
   dataSource!: MatTableDataSource<any>;
   collectionName: string = 'dishes';
@@ -41,7 +41,12 @@ export class DishesListComponent implements OnInit {
   setSort(): void {
     const params = this.activatedRoute.snapshot.queryParams;
     if (params && params['direction'] != 'none') {
-      this.sort.sort(({ id: params['sort'], direction: params['direction'], start: params['direction'] }) as any)
+      this.sort.sort((
+        {
+          id: params['sort'],
+          direction: params['direction'],
+          start: params['direction']
+        }) as any)
     }
     this.dataSource.sort = this.sort;
     this.dataSource.sort.sortChange.subscribe((sortChange: Sort) => {
@@ -50,9 +55,10 @@ export class DishesListComponent implements OnInit {
   }
 
   changeSortUrl(sortChange: any) {
+    console.log(sortChange.direction)
     const sortQueryParams = {
-      sort: sortChange.active,
-      direction: sortChange.direction || 'none',
+      sort: sortChange.direction ? sortChange.active : null,
+      direction: sortChange.direction || null,
     };
     this.router.navigate([], {
       queryParams: sortQueryParams,
@@ -64,8 +70,8 @@ export class DishesListComponent implements OnInit {
     const params = this.activatedRoute.snapshot.queryParams;
     if (params['filter']) {
       this.filterInput = params['filter'];
+      this.applyFilter();
     }
-    this.applyFilter();
   }
 
   applyFilter() {
@@ -73,7 +79,7 @@ export class DishesListComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.router.navigate([], {
       queryParams: {
-        filter: filterValue,
+        filter: filterValue || null,
       },
       queryParamsHandling: 'merge'
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ClientsService } from '../shared/services/clients.service';
@@ -12,12 +12,13 @@ import {
 
 @Component({
   selector: 'app-client',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.scss']
 })
 
 export class ClientComponent implements OnInit {
-  public item: any = [];
+  item: any = [];
   clientNote: string = '';
   id!: string;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
@@ -28,7 +29,8 @@ export class ClientComponent implements OnInit {
     private location: Location,
     private crudService: ClientsService,
     public dialog: Dialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +49,7 @@ export class ClientComponent implements OnInit {
     this.crudService.getById(this.id)
       .subscribe((res) => {
         this.item = res;
+        this.cdr.detectChanges();
       });
   }
 

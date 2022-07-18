@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DishesService } from 'src/app/shared/services/dishes.service';
 
 @Component({
   selector: 'app-orders-form',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './orders-form.component.html',
   styleUrls: ['./orders-form.component.scss']
 })
 
 export class OrdersFormComponent implements OnInit {
-  public order: any = [];
-  public dishes: any = [];
+  order: any = [];
+  dishes: any = [];
   orderForm!: FormGroup;
   sum: number = 0;
   selectedPosition!: string;

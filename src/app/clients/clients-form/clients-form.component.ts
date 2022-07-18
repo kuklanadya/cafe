@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -11,12 +11,13 @@ import {
 
 @Component({
   selector: 'app-clients-form',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './clients-form.component.html',
   styleUrls: ['./clients-form.component.scss']
 })
 
 export class ClientsFormComponent implements OnInit {
-  public item: any = [];
+  item: any = [];
   id!: string;
   clientForm!: FormGroup;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';

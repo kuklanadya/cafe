@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DishesService } from '../shared/services/dishes.service';
 
 @Component({
   selector: 'app-dish',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dish.component.html',
   styleUrls: ['./dish.component.scss']
 })
 
 export class DishComponent implements OnInit {
-  public item: any = [];
+  item: any = [];
   id!: string;
 
   constructor(
