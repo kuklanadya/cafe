@@ -6,10 +6,11 @@ import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter
   templateUrl: './client-note.component.html',
   styleUrls: ['./client-note.component.scss']
 })
+
 export class ClientNoteComponent implements OnInit {
   note: string = '';
 
-  @Input() name: any;
+  @Input() name!: string;
   @Output() noteChanged = new EventEmitter();
 
   constructor() { }

@@ -2,11 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DishesService } from 'src/app/shared/services/dishes.service';
 import { OrdersService } from 'src/app/shared/services/orders.service';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -72,21 +68,17 @@ export class OrdersFormComponent implements OnInit {
     private ordersCrudService: OrdersService,
     private snackBar: MatSnackBar) { }
 
-  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
-
-
   ngOnInit(): void {
     this.initForm();
     this.readData();
   }
 
-  handleAddClick() {
+  public handleAddClick() {
     this.addPosition();
     this.countSum();
   }
 
-  addPosition() {
+  private addPosition() {
     if (!this.order.find((item: any) => item.position == this.selectedPosition)) {
       this.order.push({
         position: this.selectedPosition,
@@ -105,7 +97,7 @@ export class OrdersFormComponent implements OnInit {
     this.quantity = 1;
   }
 
-  countSum() {
+  private countSum() {
     for (let i = 0; i < this.order.length; i++) {
       for (let item of this.dishes) {
         if (item.name === this.order[i].position) {
@@ -115,7 +107,7 @@ export class OrdersFormComponent implements OnInit {
     }
   }
 
-  initForm() {
+  private initForm() {
     this.orderForm = this.fb.group({
       name: ['', Validators.required],
       birthday: ['', Validators.required],
@@ -127,24 +119,24 @@ export class OrdersFormComponent implements OnInit {
     });
   }
 
-  formSubmitted(value: any) {
+  public formSubmitted(value: any) {
     let datePipe = new DatePipe('en-US');
     value.birthday = datePipe.transform(value.birthday, 'MM/dd/yyyy');
     this.ordersCrudService.create(value);
     this.openSnackBar('Success! Your order was accepted')
   }
 
-  readData() {
+  private readData() {
     this.dishesCrudService.read().subscribe((res: any) => {
       this.dishes = res;
     });
   }
 
-  openSnackBar(value: string) {
+  private openSnackBar(value: string) {
     this.snackBar.open(value, 'Close', {
       duration: 3000,
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
     });
   }
 }

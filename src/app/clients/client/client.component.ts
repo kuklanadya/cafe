@@ -1,14 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { ClientsService } from '../shared/services/clients.service';
 import { DeleteModalComponent } from './delete-modal/delete-modal.component';
 import { Dialog } from '@angular/cdk/dialog';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ClientsService } from 'src/app/shared/services/clients.service';
 
 @Component({
   selector: 'app-client',
@@ -21,8 +17,6 @@ export class ClientComponent implements OnInit {
   item: any = [];
   clientNote: string = '';
   id!: string;
-  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -37,7 +31,7 @@ export class ClientComponent implements OnInit {
     this.subscribeRouteParams();
   }
 
-  subscribeRouteParams() {
+  private subscribeRouteParams() {
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.id = params['id'];
@@ -45,7 +39,7 @@ export class ClientComponent implements OnInit {
       });
   }
 
-  getbyId() {
+  private getbyId() {
     this.crudService.getById(this.id)
       .subscribe((res) => {
         this.item = res;
@@ -53,16 +47,16 @@ export class ClientComponent implements OnInit {
       });
   }
 
-  deleteData(id: string) {
+  private deleteData(id: string) {
     this.crudService.delete(id);
     this.goBack();
   }
 
-  goBack() {
+  public goBack() {
     this.location.back();
   }
 
-  openDialog(id: string): void {
+  public openDialog(id: string): void {
     const dialogRef = this.dialog.open<string>(DeleteModalComponent, {
       width: '250px',
       data: {
@@ -81,15 +75,15 @@ export class ClientComponent implements OnInit {
     });
   }
 
-  openSnackBar(value: string) {
+  private openSnackBar(value: string) {
     this.snackBar.open(value, 'Close', {
       duration: 3000,
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
     });
   }
 
-  onNoteChanged(note: any) {
+  public onNoteChanged(note: any) {
     this.clientNote = note;
   }
 }

@@ -33,13 +33,13 @@ export class DishesListComponent implements OnInit {
     this.readData();
   }
 
-  createTable(res: any): void {
+  private createTable(res: any): void {
     this.data = res;
     this.dataSource = new MatTableDataSource(res);
     this.setSort();
   }
 
-  setSort(): void {
+  private setSort(): void {
     const params: { sort?: string, direction?: string, filter?: string, } = this.activatedRoute.snapshot.queryParams;
     if (params && params.direction != 'none') {
       this.sort.sort((
@@ -55,7 +55,7 @@ export class DishesListComponent implements OnInit {
     });
   }
 
-  changeSortUrl(sortChange: any) {
+  private changeSortUrl(sortChange: any) {
     const sortQueryParams = {
       sort: sortChange.direction ? sortChange.active : null,
       direction: sortChange.direction || null,
@@ -66,7 +66,7 @@ export class DishesListComponent implements OnInit {
     });
   }
 
-  checkFilterParams() {
+  private checkFilterParams() {
     const params: { sort?: string, direction?: string, filter?: string, } = this.activatedRoute.snapshot.queryParams;
     if (params.filter) {
       this.filterInput = params.filter;
@@ -74,7 +74,7 @@ export class DishesListComponent implements OnInit {
     }
   }
 
-  applyFilter() {
+  public applyFilter() {
     const filterValue = this.filterInput;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.router.navigate([], {
@@ -85,7 +85,7 @@ export class DishesListComponent implements OnInit {
     });
   }
 
-  readData() {
+  private readData() {
     this.crudService.read().subscribe((res: any) => {
       this.createTable(res);
       this.checkFilterParams();

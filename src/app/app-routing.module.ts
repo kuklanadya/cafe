@@ -1,9 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ClientComponent } from './client/client.component';
-import { ClientsFormComponent } from './clients/clients-form/clients-form.component';
-import { ClientsListComponent } from './clients/clients-list/clients-list.component';
-import { ClientsComponent } from './clients/clients.component';
 import { DishesListComponent } from './dishes/dishes-list/dishes-list.component';
 import { DishesComponent } from './dishes/dishes.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -13,44 +9,12 @@ import { OrdersComponent } from './orders/orders.component';
 const routes: Routes = [
   {
     path: 'clients',
-    component: ClientsComponent,
-    children: [
-      {
-        path: 'create',
-        component: ClientsFormComponent
-      },
-      {
-        path: 'all',
-        component: ClientsListComponent
-      },
-      {
-        path: ':id',
-        children: [
-          {
-            path: 'read',
-            component: ClientComponent
-          },
-          {
-            path: 'update',
-            component: ClientsFormComponent
-          },
-          {
-            path: 'delete',
-            component: ClientComponent
-          },
-          {
-            path: '',
-            pathMatch: 'full',
-            redirectTo: 'read'
-          }
-        ]
-      },
-    ]
+    loadChildren: () => import('./clients/clients.module').then(m => m.ClientsModule)
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/clients/all'
+    redirectTo: '/clients'
   },
   {
     path: 'orders',

@@ -3,11 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { ClientsService } from 'src/app/shared/services/clients.service';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-clients-form',
@@ -20,8 +16,6 @@ export class ClientsFormComponent implements OnInit {
   item: any = [];
   id!: string;
   clientForm!: FormGroup;
-  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   constructor(
     private fb: FormBuilder,
@@ -36,7 +30,7 @@ export class ClientsFormComponent implements OnInit {
     this.initForm();
   }
 
-  subscribeRouteParams() {
+  private subscribeRouteParams() {
     this.activatedRoute.params
       .subscribe((params: Params) => {
         this.id = params['id'];
@@ -44,15 +38,7 @@ export class ClientsFormComponent implements OnInit {
       });
   }
 
-  getById() {
-    this.crudService.getById(this.id)
-      .subscribe((res: any) => {
-        this.item = res;
-        this.patchForm();
-      });
-  }
-
-  initForm() {
+  private initForm() {
     this.clientForm = this.fb.group({
       name: ['', Validators.required],
       age: ['', Validators.required],
@@ -60,7 +46,15 @@ export class ClientsFormComponent implements OnInit {
     });
   }
 
-  patchForm() {
+  private getById() {
+    this.crudService.getById(this.id)
+      .subscribe((res: any) => {
+        this.item = res;
+        this.patchForm();
+      });
+  }
+
+  private patchForm() {
     this.clientForm.patchValue({
       name: [this.item?.name],
       age: [this.item?.age],
@@ -68,31 +62,29 @@ export class ClientsFormComponent implements OnInit {
     })
   }
 
-  formSubmitted(value: any) {
+  public formSubmitted(value: any) {
     this.id ? this.updateData(this.id, value) : this.createData(value);
   }
 
-  createData(value: any) {
-    this.crudService.create(value);
-    this.openSnackBar('Success! Client was created')
+  private createData(value: any) {
+    this.crudService.create(value).then(() => this.openSnackBar('Success! Client was created'), () => this.openSnackBar('Error'));
     this.goBack();
   }
 
-  updateData(id: string, value: any) {
-    this.crudService.update(id, value);
-    this.openSnackBar('Success! Client`s data updated')
+  private updateData(id: string, value: any) {
+    this.crudService.update(id, value).then(() => this.openSnackBar('Success! Client`s data updated'), () => this.openSnackBar('Error'));
     this.goBack();
   }
 
-  goBack() {
-    this.location.back();
-  }
-
-  openSnackBar(value: string) {
+  private openSnackBar(value: string) {
     this.snackBar.open(value, 'Close', {
       duration: 3000,
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
     });
+  }
+
+  public goBack() {
+    this.location.back();
   }
 }

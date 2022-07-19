@@ -12,13 +12,9 @@ import { OrdersComponent } from './orders/orders.component';
 import { DishesComponent } from './dishes/dishes.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { OrdersModule } from './orders/orders.module';
-import { ClientsModule } from './clients/clients.module';
 import { DishesModule } from './dishes/dishes.module';
-import { ClientComponent } from './client/client.component';
-import { DishComponent } from './dish/dish.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ClientNoteComponent } from './client/client-note/client-note.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
@@ -29,9 +25,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     OrdersComponent,
     DishesComponent,
     NotFoundComponent,
-    ClientComponent,
-    DishComponent,
-    ClientNoteComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +34,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     OrdersModule,
-    ClientsModule,
     DishesModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
