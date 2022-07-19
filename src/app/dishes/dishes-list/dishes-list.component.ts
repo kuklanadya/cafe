@@ -4,6 +4,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { stringLength } from '@firebase/util';
 
 @Component({
   selector: 'app-dishes-list',
@@ -39,13 +40,13 @@ export class DishesListComponent implements OnInit {
   }
 
   setSort(): void {
-    const params = this.activatedRoute.snapshot.queryParams;
-    if (params && params['direction'] != 'none') {
+    const params: { sort?: string, direction?: string, filter?: string, } = this.activatedRoute.snapshot.queryParams;
+    if (params && params.direction != 'none') {
       this.sort.sort((
         {
-          id: params['sort'],
-          direction: params['direction'],
-          start: params['direction']
+          id: params.sort,
+          direction: params.direction,
+          start: params.direction
         }) as any)
     }
     this.dataSource.sort = this.sort;
@@ -55,7 +56,6 @@ export class DishesListComponent implements OnInit {
   }
 
   changeSortUrl(sortChange: any) {
-    console.log(sortChange.direction)
     const sortQueryParams = {
       sort: sortChange.direction ? sortChange.active : null,
       direction: sortChange.direction || null,
@@ -67,9 +67,9 @@ export class DishesListComponent implements OnInit {
   }
 
   checkFilterParams() {
-    const params = this.activatedRoute.snapshot.queryParams;
-    if (params['filter']) {
-      this.filterInput = params['filter'];
+    const params: { sort?: string, direction?: string, filter?: string, } = this.activatedRoute.snapshot.queryParams;
+    if (params.filter) {
+      this.filterInput = params.filter;
       this.applyFilter();
     }
   }

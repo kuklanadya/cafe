@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { DishesService } from '../shared/services/dishes.service';
+import { Dish } from '../models/dish.model';
 
 @Component({
   selector: 'app-dish',
@@ -25,7 +26,7 @@ export class DishComponent implements OnInit {
   }
   subscribeRouteParams() {
     this.activatedRoute.params
-      .subscribe((params) => {
+      .subscribe((params: Params) => {
         this.id = params['id'];
         this.getbyId();
       });
@@ -33,7 +34,7 @@ export class DishComponent implements OnInit {
 
   getbyId() {
     this.crudService.getById(this.id)
-      .subscribe((res) => {
+      .subscribe((res: Dish) => {
         this.item = res;
       });
   }

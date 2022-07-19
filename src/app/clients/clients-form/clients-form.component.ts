@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { ClientsService } from 'src/app/shared/services/clients.service';
 import {
@@ -38,7 +38,7 @@ export class ClientsFormComponent implements OnInit {
 
   subscribeRouteParams() {
     this.activatedRoute.params
-      .subscribe((params) => {
+      .subscribe((params: Params) => {
         this.id = params['id'];
         this.getById();
       });
@@ -46,7 +46,7 @@ export class ClientsFormComponent implements OnInit {
 
   getById() {
     this.crudService.getById(this.id)
-      .subscribe((res) => {
+      .subscribe((res: any) => {
         this.item = res;
         this.patchForm();
       });

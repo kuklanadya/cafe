@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { ClientsService } from '../shared/services/clients.service';
 import { DeleteModalComponent } from './delete-modal/delete-modal.component';
@@ -39,7 +39,7 @@ export class ClientComponent implements OnInit {
 
   subscribeRouteParams() {
     this.activatedRoute.params
-      .subscribe((params) => {
+      .subscribe((params: Params) => {
         this.id = params['id'];
         this.getbyId();
       });
@@ -70,7 +70,7 @@ export class ClientComponent implements OnInit {
       }
     });
 
-    dialogRef.closed.subscribe(result => {
+    dialogRef.closed.subscribe((result: string | undefined) => {
       if (result == 'confirm') {
         this.deleteData(id);
         this.openSnackBar('Success! Data deleted');
