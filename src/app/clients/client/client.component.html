@@ -1,16 +1,16 @@
 <h3>Client</h3>
 
 <div class="wrapper">
-    <app-client-note [name]="item.name" (noteChanged)="onNoteChanged($event)"></app-client-note>
+    <app-client-note [name]="client.name" (noteChanged)="onNoteChanged($event)"></app-client-note>
     <div class="info">
-        <div>Name: {{item.name}}</div>
-        <div>Age: {{item.age}}</div>
-        <div>Taste: {{item.taste}}</div>
+        <div>Name: {{client.name}}</div>
+        <div>Age: {{client.age}}</div>
+        <div>Taste: {{client.taste}}</div>
         <div>Note: {{clientNote}}</div>
     </div>
 </div>
 
 <div class="buttons">
     <button (click)="goBack()">Back</button>
-    <button (click)="openDialog(item.id)">Delete data</button>
+    <button (click)="openDialog(client.id)">Delete data</button>
 </div>

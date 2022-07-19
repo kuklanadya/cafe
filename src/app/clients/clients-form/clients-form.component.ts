@@ -13,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 
 export class ClientsFormComponent implements OnInit {
-  item: any = [];
+  client: any = [];
   id!: string;
   clientForm!: FormGroup;
 
@@ -48,17 +48,17 @@ export class ClientsFormComponent implements OnInit {
 
   private getById() {
     this.crudService.getById(this.id)
-      .subscribe((res: any) => {
-        this.item = res;
+      .subscribe((clientInfo: any) => {
+        this.client = clientInfo;
         this.patchForm();
       });
   }
 
   private patchForm() {
     this.clientForm.patchValue({
-      name: [this.item?.name],
-      age: [this.item?.age],
-      taste: [this.item?.taste],
+      name: [this.client?.name],
+      age: [this.client?.age],
+      taste: [this.client?.taste],
     })
   }
 
@@ -67,13 +67,17 @@ export class ClientsFormComponent implements OnInit {
   }
 
   private createData(value: any) {
-    this.crudService.create(value).then(() => this.openSnackBar('Success! Client was created'), () => this.openSnackBar('Error'));
-    this.goBack();
+    this.crudService.create(value).then(() => {
+      this.openSnackBar('Success! Client was created');
+      this.goBack();
+    }, () => this.openSnackBar('Error'));
   }
 
   private updateData(id: string, value: any) {
-    this.crudService.update(id, value).then(() => this.openSnackBar('Success! Client`s data updated'), () => this.openSnackBar('Error'));
-    this.goBack();
+    this.crudService.update(id, value).then(() => {
+      this.openSnackBar('Success! Client`s data updated')
+      this.goBack();
+    }, () => this.openSnackBar('Error'));
   }
 
   private openSnackBar(value: string) {

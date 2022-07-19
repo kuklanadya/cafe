@@ -22,7 +22,7 @@ export class DishesListComponent implements OnInit {
   order!: string;
   filter!: string;
 
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
   constructor(
     private crudService: DishesService,
@@ -33,9 +33,8 @@ export class DishesListComponent implements OnInit {
     this.readData();
   }
 
-  private createTable(res: any): void {
-    this.data = res;
-    this.dataSource = new MatTableDataSource(res);
+  private createTable(dishes: any): void {
+    this.dataSource = new MatTableDataSource(dishes);
     this.setSort();
   }
 
@@ -86,8 +85,9 @@ export class DishesListComponent implements OnInit {
   }
 
   private readData() {
-    this.crudService.read().subscribe((res: any) => {
-      this.createTable(res);
+    this.crudService.read().subscribe((dishes: any) => {
+      this.data = dishes;
+      this.createTable(dishes);
       this.checkFilterParams();
     });
   }

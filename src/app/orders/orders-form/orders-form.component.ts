@@ -122,13 +122,13 @@ export class OrdersFormComponent implements OnInit {
   public formSubmitted(value: any) {
     let datePipe = new DatePipe('en-US');
     value.birthday = datePipe.transform(value.birthday, 'MM/dd/yyyy');
-    this.ordersCrudService.create(value);
-    this.openSnackBar('Success! Your order was accepted')
+    this.ordersCrudService.create(value).then(() => this.openSnackBar('Success! Your order was accepted'),
+      () => this.openSnackBar('Error'));
   }
 
   private readData() {
-    this.dishesCrudService.read().subscribe((res: any) => {
-      this.dishes = res;
+    this.dishesCrudService.read().subscribe((dishes: any) => {
+      this.dishes = dishes;
     });
   }
 

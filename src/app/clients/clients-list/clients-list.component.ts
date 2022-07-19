@@ -21,8 +21,8 @@ export class ClientsListComponent implements OnInit {
   }
 
   private readData() {
-    this.crudService.read().subscribe((res: any) => {
-      this.data = res;
+    this.crudService.read().subscribe((clients: any) => {
+      this.data = clients;
       this.cdr.detectChanges();
     });
   }

@@ -1,13 +1,13 @@
 <h2>Our clients</h2>
 <ol class="list">
-    <li class="list__item" *ngFor="let item of data">
-        <div>Name: {{item.name}}</div>
-        <div>Age: {{item.age}}</div>
-        <div>Taste: {{item.taste}}</div>
+    <li class="list__item" *ngFor="let client of data">
+        <div>Name: {{client.name}}</div>
+        <div>Age: {{client.age}}</div>
+        <div>Taste: {{client.taste}}</div>
 
         <button class="list__btn" routerLink="/clients/create">Create data</button>
-        <button class="list__btn" [routerLink]="['/clients', item.id, 'read']">Read data</button>
-        <button class="list__btn" [routerLink]="['/clients', item.id, 'update']">Update data</button>
-        <button class="list__btn" [routerLink]="['/clients', item.id, 'delete']">Delete data</button>
+        <button class="list__btn" [routerLink]="['/clients', client.id, 'read']">Read data</button>
+        <button class="list__btn" [routerLink]="['/clients', client.id, 'update']">Update data</button>
+        <button class="list__btn" [routerLink]="['/clients', client.id, 'delete']">Delete data</button>
     </li>
 </ol>

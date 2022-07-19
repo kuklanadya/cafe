@@ -14,7 +14,7 @@ import { ClientsService } from 'src/app/shared/services/clients.service';
 })
 
 export class ClientComponent implements OnInit {
-  item: any = [];
+  client: any = [];
   clientNote: string = '';
   id!: string;
 
@@ -41,14 +41,15 @@ export class ClientComponent implements OnInit {
 
   private getbyId() {
     this.crudService.getById(this.id)
-      .subscribe((res) => {
-        this.item = res;
+      .subscribe((clientInfo) => {
+        this.client = clientInfo;
         this.cdr.detectChanges();
       });
   }
 
   private deleteData(id: string) {
-    this.crudService.delete(id);
+    this.crudService.delete(id).then(() => this.openSnackBar('Success! Data deleted'),
+      () => this.openSnackBar('Error'));
     this.goBack();
   }
 
@@ -60,14 +61,13 @@ export class ClientComponent implements OnInit {
     const dialogRef = this.dialog.open<string>(DeleteModalComponent, {
       width: '250px',
       data: {
-        name: this.item.name,
+        name: this.client.name,
       }
     });
 
-    dialogRef.closed.subscribe((result: string | undefined) => {
-      if (result == 'confirm') {
-        this.deleteData(id);
-        this.openSnackBar('Success! Data deleted');
+    dialogRef.closed.subscribe((reply: string | undefined) => {
+      if (reply == 'confirm') {
+        this.deleteData(id)
       }
       else {
         this.openSnackBar('Oops! Deletion canceled');
