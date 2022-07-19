@@ -9,7 +9,7 @@ export class Dish extends DbEntity {
     type: DishType;
 
     constructor(name: string, ingredients: any[], price: number, taste: TasteType, type: DishType) {
-        super()
+        super();
         this.name = name;
         this.ingredients = ingredients;
         this.price = price;

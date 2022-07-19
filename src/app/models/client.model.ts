@@ -8,7 +8,7 @@ export class Client extends DbEntity {
     taste?: TasteType;
 
     constructor(name: string, age: number, taste: TasteType) {
-        super()
+        super();
         this.name = name;
         this.age = age;
         this.taste = taste || TasteType.common;
